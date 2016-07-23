@@ -1,2 +1,2 @@
 # delib
-Library of DeKuan
+Library by DeKuan, Inc.
