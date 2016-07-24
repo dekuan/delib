@@ -223,7 +223,7 @@ class CLib
 			//	a new field defined by dekuan.org
 			//	almost like HTTP_X_FORWARDED_FOR
 			//
-			$sClientIp = self::GetEnvVar( 'HTTP_XSCN_FORWARDED_FOR', $_SERVER );
+			$sClientIp = self::GetEnvVar( 'HTTP_VDATA_FORWARDED_FOR', $_SERVER );
 			if ( ! self::IsExistingString( $sClientIp ) )
 			{
 				$sClientIp = self::GetEnvVar( 'HTTP_X_FORWARDED_FOR', $_SERVER );
