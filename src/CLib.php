@@ -15,6 +15,12 @@ class CLib
 	const VARTYPE_STRING			= 2;
 	const VARTYPE_ARRAY			= 3;
 
+
+	static function IsCharacters( $vValue )
+	{
+		return ( is_string( $vValue ) || is_numeric( $vValue ) );
+	}
+
 	static function IsArrayWithKeys( $vData, $vKeys = null )
 	{
 		//
