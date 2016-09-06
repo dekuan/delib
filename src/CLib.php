@@ -81,9 +81,10 @@ class CLib
 	{
 		$bRet	= false;
 
-		if ( is_string( $sStr ) )
+		if ( is_string( $sStr ) || is_numeric( $sStr ) )
 		{
-			$bRet = ( strlen( $bTrim ? trim( $sStr ) : $sStr ) > 0 );
+			$sStr	= strval( $sStr );
+			$bRet	= ( strlen( $bTrim ? trim( $sStr ) : $sStr ) > 0 );
 		}
 
 		return $bRet;
