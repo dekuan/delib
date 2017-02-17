@@ -239,9 +239,9 @@ class CLib
 		}
 		if ( ! self::IsExistingString( $sClientIp ) )
 		{
-			$sClientIp = self::GetEnvVar( 'X-Real-IP', $_SERVER );
+			//	for acfun only
+			$sClientIp = self::GetEnvVar( 'HTTP_X_REAL_IP', $_SERVER );
 		}
-
 
 		if ( $bPlayWithProxy )
 		{
