@@ -231,14 +231,24 @@ class CLib
 			//	almost like HTTP_X_FORWARDED_FOR
 			//
 			$sClientIp = self::GetEnvVar( 'HTTP_VDATA_FORWARDED_FOR', $_SERVER );
+		}
+
+		if ( ! self::IsExistingString( $sClientIp ) )
+		{
+			$sClientIp = self::GetEnvVar( 'REMOTE_ADDR', $_SERVER );
+		}
+		if ( ! self::IsExistingString( $sClientIp ) )
+		{
+			//	for acfun only
+			$sClientIp = self::GetEnvVar( 'HTTP_X_REAL_IP', $_SERVER );
+		}
+
+		if ( $bPlayWithProxy )
+		{
 			if ( ! self::IsExistingString( $sClientIp ) )
 			{
 				$sClientIp = self::GetEnvVar( 'HTTP_X_FORWARDED_FOR', $_SERVER );
 			}
-		}
-		if ( ! self::IsExistingString( $sClientIp ) )
-		{
-			$sClientIp = self::GetEnvVar( 'REMOTE_ADDR', $_SERVER );
 		}
 
 		if ( self::IsExistingString( $sClientIp ) )
