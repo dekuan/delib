@@ -63,28 +63,24 @@ class test extends PHPUnit_Framework_TestCase
 			$this->assertTrue( 0 == strcasecmp( $sExpect, $sClientIP ) );
 		}
 
-//		//	...
-//		$_SERVER	= [];
-//
-//		foreach ( $arrVarList as $arrData )
-//		{
-//			$sKey		= $arrData[ 2 ];
-//			$sValue		= $arrData[ 3 ];
-//
-//			//	...
-//			$_SERVER[ $sKey ] = $sValue;
-//		}
-//
-//		//	...
-//		$sClientIP	= delib\CLib::GetClientIP( false, true );
-//		echo "\r\n+ Play With Proxy=true\r\n";
-//		print_r( $_SERVER );
-//		echo "\tRESULT:\t" . $sClientIP . "\r\n";
-//
-//		//	...
-//		$sClientIP	= delib\CLib::GetClientIP( false, false );
-//		echo "\r\n+ Play With Proxy=false\r\n";
-//		print_r( $_SERVER );
-//		echo "\tRESULT:\t" . $sClientIP . "\r\n";
+		//	...
+		$_SERVER	= [];
+
+		foreach ( $arrVarList as $arrData )
+		{
+			$sKey		= $arrData[ 2 ];
+			$sValue		= $arrData[ 3 ];
+
+			//	...
+			$_SERVER[ $sKey ] = $sValue;
+		}
+		unset( $_SERVER['HTTP_VDATA_FORWARDED_FOR'] );
+
+		//	...
+		$sClientIP	= delib\CLib::GetClientIP( false, true );
+		echo "\r\n+ Play With Proxy=true\r\n";
+		print_r( $_SERVER );
+		echo "\tRESULT:\t" . $sClientIP . "\r\n";
+		$this->assertTrue( 0 == strcasecmp( '106.39.200.4', $sClientIP ) );
 	}
 }

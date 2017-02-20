@@ -235,12 +235,18 @@ class CLib
 
 		if ( ! self::IsExistingString( $sClientIp ) )
 		{
-			$sClientIp = self::GetEnvVar( 'REMOTE_ADDR', $_SERVER );
+			//
+			//	for acfun.cn only
+			//
+			$sClientIp = self::GetEnvVar( 'HTTP_X_REAL_IP', $_SERVER );
 		}
+
 		if ( ! self::IsExistingString( $sClientIp ) )
 		{
-			//	for acfun only
-			$sClientIp = self::GetEnvVar( 'HTTP_X_REAL_IP', $_SERVER );
+			//
+			//	It's real client IP address given by HTTPD
+			//
+			$sClientIp = self::GetEnvVar( 'REMOTE_ADDR', $_SERVER );
 		}
 
 		if ( $bPlayWithProxy )
