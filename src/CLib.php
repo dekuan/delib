@@ -238,7 +238,7 @@ class CLib
 			//
 			//	for acfun.cn only
 			//
-			$sClientIp = self::GetEnvVar( 'HTTP_X_REAL_IP', $_SERVER );
+			$sClientIp = self::GetEnvVar( 'HTTP_X_TRUE_IP', $_SERVER );
 		}
 
 		if ( ! self::IsExistingString( $sClientIp ) )
@@ -266,20 +266,17 @@ class CLib
 				//	may be an address from HTTP_X_FORWARDED_FOR
 				//
 				$sClientIp = trim( substr( $sClientIp, 0, $nPos ) );
-				if ( self::IsValidIp( $sClientIp, $bMustBePublic ) )
-				{
-					$sRet = $sClientIp;
-				}
 			}
 			else
 			{
 				//
 				//	may be an address from REMOTE_ADDR
 				//
-				if ( self::IsValidIp( $sClientIp, $bMustBePublic ) )
-				{
-					$sRet = $sClientIp;
-				}
+			}
+
+			if ( self::IsValidIp( $sClientIp, $bMustBePublic ) )
+			{
+				$sRet = $sClientIp;
 			}
 		}
 
