@@ -28,10 +28,10 @@ class test extends PHPUnit_Framework_TestCase
 			[ false, true,	'REMOTE_ADDR', '106.39.200.3', '106.39.200.3' ],
 			[ false, false,	'REMOTE_ADDR', '106.39.200.3', '106.39.200.3' ],
 
-			[ true,	true,	'HTTP_X_TRUE_IP', '106.39.200.4', '106.39.200.4' ],
-			[ true,	false,	'HTTP_X_TRUE_IP', '106.39.200.4', '106.39.200.4' ],
-			[ false, true,	'HTTP_X_TRUE_IP', '106.39.200.4', '106.39.200.4' ],
-			[ false, false,	'HTTP_X_TRUE_IP', '106.39.200.4', '106.39.200.4' ],
+			[ true,	true,	'HTTP_X_TRUE_IP', '45.34.23.101, 115.238.232.96', '45.34.23.101' ],
+			[ true,	false,	'HTTP_X_TRUE_IP', '45.34.23.101, 115.238.232.96', '45.34.23.101' ],
+			[ false, true,	'HTTP_X_TRUE_IP', '45.34.23.101, 115.238.232.96', '45.34.23.101' ],
+			[ false, false,	'HTTP_X_TRUE_IP', '45.34.23.101, 115.238.232.96', '45.34.23.101' ],
 
 			[ true,	true,	'HTTP_X_FORWARDED_FOR', '106.39.200.5,106.39.200.6', '106.39.200.5' ],
 			[ true,	false,	'HTTP_X_FORWARDED_FOR', '106.39.200.5,106.39.200.6', '' ],
@@ -81,6 +81,6 @@ class test extends PHPUnit_Framework_TestCase
 		echo "\r\n+ Play With Proxy=true\r\n";
 		print_r( $_SERVER );
 		echo "\tRESULT:\t" . $sClientIP . "\r\n";
-		$this->assertTrue( 0 == strcasecmp( '106.39.200.4', $sClientIP ) );
+		$this->assertTrue( 0 == strcasecmp( '45.34.23.101', $sClientIP ) );
 	}
 }
