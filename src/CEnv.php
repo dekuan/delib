@@ -84,4 +84,14 @@ class CEnv
 
 		return $nRet;
 	}
+
+	static function IsSecureHttp()
+	{
+		return ( CLib::IsArrayWithKeys( $_SERVER, 'HTTPS' ) &&
+			CLib::IsExistingString( $_SERVER[ 'HTTPS' ] ) &&
+			(
+				0 == strcasecmp( 'ON', $_SERVER[ 'HTTPS' ] ) ||
+				0 == strcasecmp( '1', $_SERVER[ 'HTTPS' ] )
+			) );
+	}
 }
