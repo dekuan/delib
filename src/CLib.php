@@ -69,6 +69,56 @@ class CLib
 
 		return $bRet;
 	}
+
+	static function IsObjectWithProperties( $vData, $vKeys = null )
+	{
+		//
+		//	vData	- object, stdClass
+		//	vKeys	- keys array, like: [ 'key1', 'key2', ... ]
+		//		  key string, like: 'key1'
+		//	RETURN	- true / false
+		//
+		if ( ! is_object( $vData ) )
+		{
+			return false;
+		}
+
+		//	...
+		$bRet = false;
+
+		if ( is_array( $vKeys ) && count( $vKeys ) > 0 )
+		{
+			//	vKeys is a list of array
+			//	check if vData have the specified properties
+			$nKeyCount	= count( $vKeys );
+			$nMatchedCount	= 0;
+			foreach ( $vKeys as $vKey )
+			{
+				if ( is_string( $vKey ) )
+				{
+					if ( property_exists( $vData, $vKey ) )
+					{
+						$nMatchedCount ++;
+					}
+				}
+			}
+
+			$bRet = ( $nKeyCount == $nMatchedCount );
+		}
+		else if ( self::IsExistingString( $vKeys ) )
+		{
+			//	vKeys is a key in string
+			$bRet = property_exists( $vData, $vKeys );
+		}
+		else
+		{
+			//	vKeys is null
+			$bRet = is_object( $vData );
+		}
+
+		return $bRet;
+	}
+
 	static function IsSameString( $sStr1, $sStr2 )
 	{
 		return ( is_string( $sStr1 ) && is_string( $sStr2 ) && 0 == strcmp( $sStr1, $sStr2 ) );
