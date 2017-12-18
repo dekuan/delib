@@ -474,7 +474,7 @@ class CLib
 			return false;
 		}
 
-		$sReExp	= '/^(?:13|14|15|18|17)[0-9]{9}$/';
+		$sReExp	= '/^(?:13|14|15|16|17|18|19)[0-9]{9}$/';
 		$sStr	= ( $bTrim ? trim( $sStr ) : $sStr );
 
 		return ( 1 == preg_match( $sReExp, $sStr ) );

@@ -1,18 +1,15 @@
 <?php
 
-require_once dirname( __DIR__ ) . '/src/CEnv.php';
-require_once dirname( __DIR__ ) . '/src/CLib.php';
-
-use dekuan\delib;
+namespace dekuan\delib;
+use dekuan\vdata\CConst;
 
 
 /**
- * Created by PhpStorm.
- * User: xing
- * Date: 17/02/2017
- * Time: 12:49 AM
+ *	Created by PhpStorm.
+ *	User: xing
+ *	Date: 12:49 AM, February 17, 2017
  */
-class test extends PHPUnit_Framework_TestCase
+class testCLib extends \PHPUnit\Framework\TestCase
 {
 	public function testGetClientIP()
 	{
@@ -57,10 +54,14 @@ class test extends PHPUnit_Framework_TestCase
 
 			echo "  PARAM:  MustBePublic=" . ( $bMustBePublic ? "true" : "false" ) . ", ";
 			echo "PlayWithProxy=" . ( $bPlayWithProxy ? "true" : "false" ) . "\r\n";
-			$sClientIP	= delib\CLib::GetClientIP( $bMustBePublic, $bPlayWithProxy );
+			$sClientIP	= CLib::GetClientIP( $bMustBePublic, $bPlayWithProxy );
 			echo "  GOT IP: \"" . $sClientIP . "\"\r\n  EXPECT: \"" . $sExpect . "\"\r\n";
 
-			$this->assertTrue( 0 == strcasecmp( $sExpect, $sClientIP ) );
+			//	...
+			new CAssertResult
+			(
+				__CLASS__, __FUNCTION__, 'CLib::GetClientIP', strcasecmp( $sExpect, $sClientIP )
+			);
 		}
 
 		//	...
@@ -74,13 +75,92 @@ class test extends PHPUnit_Framework_TestCase
 			//	...
 			$_SERVER[ $sKey ] = $sValue;
 		}
-		unset( $_SERVER['HTTP_VDATA_FORWARDED_FOR'] );
+		unset( $_SERVER[ 'HTTP_VDATA_FORWARDED_FOR' ] );
 
 		//	...
-		$sClientIP	= delib\CLib::GetClientIP( false, true );
+		$sClientIP	= CLib::GetClientIP( false, true );
 		echo "\r\n+ Play With Proxy=true\r\n";
-		print_r( $_SERVER );
 		echo "\tRESULT:\t" . $sClientIP . "\r\n";
-		$this->assertTrue( 0 == strcasecmp( '45.34.23.101', $sClientIP ) );
+
+		//	...
+		new CAssertResult
+		(
+			__CLASS__,
+			__FUNCTION__,
+			'CLib::GetClientIP',
+			strcasecmp( '45.34.23.101', $sClientIP )
+		);
 	}
+	
+	public function testIsValidMobile()
+	{
+		echo( __FUNCTION__ . "\r\n" );
+
+		//
+		//	static function IsValidMobile( $sStr, $bTrim = false )
+		//
+		$arrVarList	=
+		[
+			[ true,	false,	'13011070903' ],
+			[ true,	false,	'13111070903' ],
+			[ true,	false,	'13211070903' ],
+			[ true,	false,	'13311070903' ],
+			[ true,	false,	'13411070903' ],
+			[ true,	false,	'13511070903' ],
+			[ true,	false,	'13611070903' ],
+			[ true,	false,	'13711070903' ],
+			[ true,	false,	'13811070903' ],
+			[ true,	false,	'13911070903' ],
+
+			[ true,	true,	' 13011070903 ' ],
+			[ true,	true,	' 13111070903 ' ],
+			[ true,	true,	' 13211070903 ' ],
+			[ true,	true,	' 13311070903 ' ],
+			[ true,	true,	' 13411070903 ' ],
+			[ true,	true,	' 13511070903 ' ],
+			[ true,	true,	' 13611070903 ' ],
+			[ true,	true,	' 13711070903 ' ],
+			[ true,	true,	' 13811070903 ' ],
+			[ true,	true,	' 13911070903 ' ],
+
+			[ false, false,	' 13911070903 ' ],
+
+			[ false, true,	'13911070903' ],
+			[ false, true,	'139110709' ],
+			[ false, true,	'13911070' ],
+			[ false, true,	'1391107' ],
+			[ false, true,	'139110' ],
+			[ false, true,	'13911' ],
+			[ false, true,	'1391' ],
+			[ false, true,	'139' ],
+			[ false, true,	'13' ],
+			[ false, true,	'1' ],
+			[ false, true,	'' ],
+			[ false, true,	null ],
+			[ false, true,	[] ],
+		];
+
+		foreach ( $arrVarList as $arrData )
+		{
+			$bExpect	= $arrData[ 0 ];
+			$bTrim		= $arrData[ 1 ];
+			$sValue		= $arrData[ 2 ];
+
+			$bValid		= CLib::IsValidMobile( $sValue, $bTrim );
+
+			//	...
+			new CAssertResult
+			(
+				__CLASS__,
+				__FUNCTION__,
+				'CLib::IsValidMobile',
+				( $bValid == $bExpect ? CConst::ERROR_SUCCESS : CConst::ERROR_FAILED )
+			);
+		}
+		
+	}
+	
+	
+	
+	
 }
