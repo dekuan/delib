@@ -24,18 +24,21 @@ class CAssertResult
 			printf( "\r\n" );
 			printf( "# ERROR %8d, ", $nErrorId );
 			printf( "%s::%s->%s\r\n", $sClassName, $sFuncName, $sCallMethod );
-			printf( "\r\n" );
-		}
-		
-		if ( null !== $vDumpString )
-		{
-			if ( is_array( $vDumpString ) )
+
+			if ( null !== $vDumpString )
 			{
-				print_r( $vDumpString );
-			}
-			else
-			{
-				var_dump( $vDumpString );	
+				if ( is_array( $vDumpString ) )
+				{
+					print_r( $vDumpString );
+				}
+				else if ( is_string( $vDumpString ) )
+				{
+					echo $vDumpString;
+				}
+				else
+				{
+					var_dump( $vDumpString );
+				}
 			}
 		}
 	}

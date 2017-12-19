@@ -273,35 +273,14 @@ class CLib
 		$sRet		= '';
 		$sClientIp	= '';
 
-		//	...
-		if ( $bPlayWithProxy )
-		{
-			//
-			//	a new field defined by dekuan.org
-			//	almost like HTTP_X_FORWARDED_FOR
-			//
-			$sClientIp = self::GetEnvVar( 'HTTP_VDATA_FORWARDED_FOR', $_SERVER );
-		}
+		//
+		//	real client IP address given by HTTPD
+		//
+		$sClientIp	= self::GetEnvVar( 'REMOTE_ADDR', $_SERVER );
 
 		if ( ! self::IsExistingString( $sClientIp ) )
 		{
-			//
-			//	for acfun.cn only
-			//
-			$sClientIp = self::GetEnvVar( 'HTTP_X_TRUE_IP', $_SERVER );
-		}
-
-		if ( ! self::IsExistingString( $sClientIp ) )
-		{
-			//
-			//	It's real client IP address given by HTTPD
-			//
-			$sClientIp = self::GetEnvVar( 'REMOTE_ADDR', $_SERVER );
-		}
-
-		if ( $bPlayWithProxy )
-		{
-			if ( ! self::IsExistingString( $sClientIp ) )
+			if ( $bPlayWithProxy )
 			{
 				$sClientIp = self::GetEnvVar( 'HTTP_X_FORWARDED_FOR', $_SERVER );
 			}
