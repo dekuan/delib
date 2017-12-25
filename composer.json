@@ -20,7 +20,8 @@
 	"require":
 	{
 		"php" : ">=5.3.0",
-		"dekuan/vdata" : ">=1.0"
+		"dekuan/vdata" : ">=1.0",
+		"dekuan/dedid" : ">=1.0"
 	},
 	"require-dev" :
 	{
