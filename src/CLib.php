@@ -4,7 +4,7 @@ namespace dekuan\delib;
 
 
 /**
- *     CLib 
+ *     CLib library
  */
 class CLib 
 {
@@ -16,11 +16,20 @@ class CLib
 	const VARTYPE_ARRAY			= 3;
 
 
+	/**
+	 *	@param	$vValue	mixed
+	 *	@return boolean 
+	 */
 	static function IsCharacters( $vValue )
 	{
 		return ( is_string( $vValue ) || is_numeric( $vValue ) );
 	}
 
+	/**
+	 *	@param  $vData	mixed
+	 *	@param	$vKeys	mixed
+	 *	@return	boolean 
+	 */
 	static function IsArrayWithKeys( $vData, $vKeys = null )
 	{
 		//
@@ -70,6 +79,11 @@ class CLib
 		return $bRet;
 	}
 
+	/**
+	 *	@param	$vData	mixed
+	 *	@param	$vKeys	mixed
+	 *	@return	boolean
+	 */
 	static function IsObjectWithProperties( $vData, $vKeys = null )
 	{
 		//
@@ -119,14 +133,31 @@ class CLib
 		return $bRet;
 	}
 
+	/**
+	 *	@param	$sStr1	string
+	 *	@param	$sStr2	string
+	 *	@return	boolean
+	 */
 	static function IsSameString( $sStr1, $sStr2 )
 	{
 		return ( is_string( $sStr1 ) && is_string( $sStr2 ) && 0 == strcmp( $sStr1, $sStr2 ) );
 	}
+
+	/**
+	 *	@param	$sStr1	string
+	 *	@param	$sStr2	string
+	 *	@return	boolean
+	 */
 	static function IsCaseSameString( $sStr1, $sStr2 )
 	{
 		return ( is_string( $sStr1 ) && is_string( $sStr2 ) && 0 == strcasecmp( $sStr1, $sStr2 ) );
 	}
+
+	/**
+	 *	@param	$sStr	string
+	 *	@param	$bTrim	boolean
+	 *	@return	boolean
+	 */
 	static function IsExistingString( $sStr, $bTrim = false )
 	{
 		$bRet	= false;
@@ -140,7 +171,12 @@ class CLib
 		return $bRet;
 	}
 
-	static function EncodeObject( $ArrObject, $nEncodeType = CLib::ENCODEOBJECT_TYPE_JSON )
+	/**
+	 *	@param	$ArrObject	array
+	 *	@param	$nEncodeType	int
+	 *	@return	string
+	 */
+	static function EncodeObject( Array $ArrObject, $nEncodeType = CLib::ENCODEOBJECT_TYPE_JSON )
 	{
 		$sRet = '';
 
@@ -159,6 +195,11 @@ class CLib
 		return $sRet;
 	}
 
+	/**
+	 *	@param	$sString	string
+	 *	@param	$nEncodeType	int
+	 *	@return	array
+	 */
 	static function DecodeObject( $sString, $nEncodeType = CLib::ENCODEOBJECT_TYPE_JSON )
 	{
 		$ArrRet	= Array();
@@ -185,6 +226,11 @@ class CLib
 		return $ArrRet;
 	}
 
+	/**
+	 *	@param	$sKey	string
+	 *	@param	$arrEnv	array
+	 *	@return	mixed
+	 */
 	static function GetEnvVar( $sKey, $arrEnv = null )
 	{
 		//
@@ -225,6 +271,11 @@ class CLib
 		return $vRet;
 	}
 
+	/**
+	 *	@param	$bMustBePublic	boolean
+	 *	@param	$bPlayWithProxy	boolean
+	 *	@return	string
+	 */
 	static function GetClientIP( $bMustBePublic = true, $bPlayWithProxy = true )
 	{
 		//
@@ -312,6 +363,12 @@ class CLib
 		return $sRet;
 	}
 
+	/**
+	 *	@param	$sStr		string
+	 *	@param	$bMustBePublic	boolean
+	 *	@param	$bTrim		boolean
+	 *	@return	boolean
+	 */
 	static function IsValidIP( $sStr, $bMustBePublic = true, $bTrim = false )
 	{
 		//
@@ -368,6 +425,12 @@ class CLib
 			) );
 	}
 
+	/**
+	 *	@param	$sStr		string
+	 *	@param	$bCheckDNS	boolean
+	 *	@param	$bTrim		boolean
+	 *	@return	boolean
+	 */
 	static function IsValidEMail( $sStr, $bCheckDNS = false, $bTrim = false )
 	{
 		//
@@ -437,6 +500,11 @@ class CLib
 		return $bRet;
 	}
 
+	/**
+	 *	@param	$sStr		string
+	 *	@param	$bTrim		boolean
+	 *	@return	boolean
+	 */
 	static function IsValidMobile( $sStr, $bTrim = false )
 	{
 		//
@@ -459,12 +527,22 @@ class CLib
 		return ( 1 == preg_match( $sReExp, $sStr ) );
 	}
 
+	/**
+	 *	@return	boolean
+	 */
 	static function IsMobileDevice()
 	{
 		$cMobDet = new CMobileDetector();
 		return ( $cMobDet->isMobile() || $cMobDet->isTablet() );
 	}
 
+	/**
+	 *	@param	$arrObj		array
+	 *	@param	$sName		string
+	 *	@param	$bIsNumeric	boolean
+	 *	@param	$vDefValue	mixed
+	 *	@return	mixed
+	 */
 	static function GetVal( $arrObj, $sName, $bIsNumeric = false, $vDefValue = null )
 	{
 		//
@@ -501,6 +579,14 @@ class CLib
 
 		return $vRet;
 	}
+
+	/**
+	 *	@param	$arrObj		array
+	 *	@param	$sName		string
+	 *	@param	$nVarType	int
+	 *	@param	$vDefValue	mixed
+	 *	@return	mixed
+	 */
 	static function GetValEx( $arrObj, $sName, $nVarType = self::VARTYPE_STRING, $vDefValue = null )
 	{
 		//
@@ -553,15 +639,31 @@ class CLib
 		return $vRet;
 	}
 
+	/**
+	 *	@param	$vVal		mixed
+	 *	@param	$sDefaultVal	string
+	 *	@return	string
+	 */
 	static function SafeStringVal( $vVal, $sDefaultVal = '' )
 	{
 		return ( ( is_string( $vVal ) || is_numeric( $vVal ) ) ? strval( $vVal ) : $sDefaultVal );
 	}
+
+	/**
+	 *	@param	$vVal		mixed
+	 *	@param	$nDefaultVal	int
+	 *	@return	int
+	 */
 	static function SafeIntVal( $vVal, $nDefaultVal = 0 )
 	{
 		return ( ( is_string( $vVal ) || is_numeric( $vVal ) || is_array( $vVal ) ) ? intval( $vVal ) : $nDefaultVal );
 	}
 
+	/**
+	 *	@param	$nMaxLength	int
+	 *	@param	$bNumeric	boolean
+	 *	@return	string
+	 */
 	static function GenerateRandomString( $nMaxLength = 10, $bNumeric = false )
 	{
 		$sRet = '';
@@ -583,4 +685,7 @@ class CLib
 
 		return $sRet;
 	}
+
+
+
 }

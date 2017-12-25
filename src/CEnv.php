@@ -3,6 +3,9 @@
 namespace dekuan\delib;
 
 
+/**
+ *	CEnv
+ */
 class CEnv
 {
 	const ENV_UNKNOWN		= -1;	//	unknown
@@ -15,9 +18,12 @@ class CEnv
 	const ROOT_DOMAIN		= 'dekuan.org';
 
 
-	//
-	//	get environment type
-	//
+
+	/**
+	 *	get environment type
+	 *
+	 *	@return int
+	 */
 	static function GetEnvType()
 	{
 		//
@@ -85,6 +91,11 @@ class CEnv
 		return $nRet;
 	}
 
+	/**
+	 *	detect if the protocol of current request is secure
+	 * 
+	 *	@return boolean
+	 */
 	static function IsSecureHttp()
 	{
 		return ( CLib::IsArrayWithKeys( $_SERVER, 'HTTPS' ) &&
@@ -94,4 +105,8 @@ class CEnv
 				0 == strcasecmp( '1', $_SERVER[ 'HTTPS' ] )
 			) );
 	}
+
+
+
+
 }

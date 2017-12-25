@@ -9,4 +9,5 @@ $loader = require __DIR__ . '/../vendor/autoload.php';
 $loader->addPsr4( 'dekuan\\delib\\', __DIR__ );
 $loader->addPsr4( 'dekuan\\delib\\', __DIR__ . '/../src/' );
 $loader->addPsr4( 'dekuan\\vdata\\', __DIR__ . '/../vendor/dekuan/vdata/src/' );
+$loader->addPsr4( 'dekuan\\dedid\\', __DIR__ . '/../vendor/dekuan/dedid/src/' );
 
