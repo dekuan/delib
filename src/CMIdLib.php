@@ -5,10 +5,14 @@ namespace dekuan\delib;
 use dekuan\dedid\CDId;
 
 
+/**
+ *	CMIdLib
+ */
 class CMIdLib
 {
 	/**
 	 *	check if a mid is valid
+	 * 
 	 *	@param $vMId	mixed
 	 *	@return	boolean
 	 */
@@ -38,6 +42,7 @@ class CMIdLib
 
 	/**
 	 *	create a new mid
+	 * 
 	 *	@param $nCenter	int
 	 *	@param $nNode	int
 	 *	@param $sSource	string
