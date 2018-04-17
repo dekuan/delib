@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Http\Lib;
-
-use dekuan\delib\CLib;
+namespace dekuan\delib;
 
 
 /**
